@@ -1,0 +1,63 @@
+﻿@*@model IEnumerable<ShopOnline.ViewModels.CartModel>*@
+@model ShopOnline.ViewModels.CartModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+&nbsp;
+<div class="container">
+<h1 style="font-weight:bold;text-align:center;font-family:'Times New Roman'">Giỏ hàng của bạn</h1>
+<div class="col-md-11 single-main-left">
+    <table class="table table-bordered" style="font-family:'Times New Roman'">
+        <thead>
+            <tr>
+                <th style="width:10%;text-align:center">Mã sản phẩm</th>
+                <th style="width:25%;text-align:center">Tên sản phẩm</th>
+                <th style="width:10%;text-align:center">Tên size</th>
+                <th style="width:12%;text-align:center">Giá bán</th>
+                <th style="width:17%;text-align:center">Số lượng</th>
+                <th style="width:14%;text-align:center">Thành tiền</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                var thanhtien = item.SoLuong * item.SanPham.GiaBan ;
+                <tr>
+                    <td>@item.SanPham.SanPhamID</td>
+                    <td>@item.SanPham.Ten</td>
+                    <td>@item.Size.MaSize</td>
+                    <td>@string.Format("{0:0,0 VNĐ}", item.SanPham.GiaBan).Replace(",", ".")</td>
+                    <td>
+                        @using (Html.BeginForm("UpdateToCart", "GioHang", FormMethod.Post))
+                        {
+                            @Html.Hidden("SanPhamSizeID", @item.SanPhamSizeID)
+                            @Html.TextBox("SoLuong", @item.SoLuong, new { @style = "width:50px" })
+                            <input type="image" src="/Bootstrap/images/update.png" id="btnCapNhat"
+                                   style="height:24px; position:absolute" />
+                        }
+                    </td>
+                    <td>@string.Format("{0:0,0 VNĐ}", @thanhtien).Replace(",", ".") </td>
+                    <td>
+                        <form id="frmXLDelete" action="@Url.Action("RemoveFromCart","GioHang")" method="post">
+                            <input type="hidden" name="SanPhamSizeID" value="@item.SanPhamSizeID" />
+                            <input type="image" src="/Bootstrap/images/delete.jpg" id="btnXoa"
+                                   style="height:24px;" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="border-top: solid 2px #0094ff; margin:10px; padding-top:10px; font-size:20px;font-family:'Times New Roman'; font-weight:bold;text-align:right">
+        <b>Tổng trị giá: @string.Format("{0:0,0 VNĐ}", @Model.Total()).Replace(",", ".")</b>
+    </div>
+    <div style="padding-bottom:30px; text-align:right">
+        @Html.ActionLink("Đặt hàng", "Checkout", "GioHang")
+        &nbsp;| &nbsp;
+        <a href="@Url.Action("AllSanPham","SanPham")" class="linkButton1">Mua Thêm</a><br />
+    </div>
+</div>
+</div>

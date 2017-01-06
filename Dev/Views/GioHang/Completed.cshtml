@@ -1,0 +1,36 @@
+﻿@model webmaylanh.Models.DonHang
+@{
+    ViewBag.Title = "Completed";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    #datthanhcong {
+        text-align: center;
+        font-family: 'Times New Roman';
+    }
+</style>
+<div id="datthanhcong">
+    <h1><strong> Đặt hàng thành công</strong></h1>
+    <h3><b>@ViewBag.Message</b></h3>
+    <h3><b>Mã số đơn đặt hàng: <b>@Model.DonHangID</b></b></h3>
+    <h2 style="text-align:center">Quý Khách lựa chọn hình thức thanh toán</h2>
+    @*<table align="center" border="1">
+            <tr style="text-align:center;font-weight:bold" class="btn btn-warning">
+                <td>@Html.ActionLink("Thanh toán trực tuyến", "thanhtoantructuyen", "GioHang")</td>
+            </tr>
+        </table>
+        <table align="center" border="1">
+            <tr style="text-align:center;font-weight:bold" class = " btn btn-warning">
+                <td> @Html.ActionLink("Thanh toán sau", "Index", "Home")</td>
+
+            </tr>
+        </table>*@
+    <div class="table-responsive" style=" text-align: center;padding:10px">
+        @Html.ActionLink("Thanh Toán Trực Tuyến", "thanhtoantructuyen", "GioHang", new { @class = "btn btn-warning" })
+        <a href="@Url.Action("Index", "Home")" class="table-responsive btn-warning" style="padding:10px">Thanh Toán Sau</a>
+    </div>
+    @*
+        <h3><b><td colspan="5">@ViewBag.TongTien VNĐ</td></b></h3>
+        <a target="_blank" href="https://www.nganluong.vn/button_payment.php?receiver=minhngocle5@gmail.com&product_name=@Model.DonHangID&price= @ViewBag.TongTien VNĐreturn_url=(URL thanh toán thành công)&comments=(Ghi chú về đơn hàng)"><img src="https://www.nganluong.vn/css/newhome/img/button/safe-pay-2.png" border="0" /></a>*@
+</div>
+
