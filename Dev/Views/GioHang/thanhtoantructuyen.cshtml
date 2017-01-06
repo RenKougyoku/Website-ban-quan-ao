@@ -1,0 +1,29 @@
+﻿@model IEnumerable<webmaylanh.Models.DonHang>
+
+@{
+    ViewBag.Title = "Thanh Toán Trực Tuyến";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    #datthanhcong {
+        text-align: center;
+        font-family: 'Times New Roman';
+    }
+</style>
+<h1 class="text-center" style="color:green;font-weight:bold;"><strong>Thanh Toán Trực Tuyến</strong></h1>
+<div id="datthanhcong">
+    @foreach (var s in Model)
+    {
+        <h3>Đơn hàng của quý khách là: @s.DonHangID</h3> 
+        <p>
+            <h3>
+                Tổng tiền cần thanh toán là :
+                @ViewBag.TongTien.ToString("#,##") VNĐ
+            </h3>
+        </p>
+    <a target="_blank" href="https://www.nganluong.vn/button_payment.php?receiver=tambinh95@gmail.com&product_name=@s.DonHangID&price=@ViewBag.TongTien VNĐ&return_url=(URL thanh toán thành công)&comments=(Ghi chú về đơn hàng)"><img src="https://www.nganluong.vn/css/newhome/img/button/safe-pay-2.png" border="0" /></a>
+    
+    }
+
+</div>
+<a href="@Url.Action("Index", "Home")" style="padding:10px">Trở về</a>
