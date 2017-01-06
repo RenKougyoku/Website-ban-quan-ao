@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@using webmaylanh.Models
 @model List<ItemGioHang>
 @{
@@ -50,10 +51,65 @@
                     <b style="padding-left:20px">Email:</b>
                     <div class="col-md-12">
                         @kh.Email
+=======
+﻿@model ShopOnline.Models.DonHang
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    <div class="content">
+        
+        <div class="form-horizontal">
+            
+                <h3 style="text-align:center">Đơn hàng</h3>
+                <hr />
+                @Html.ValidationSummary(true)
+            <div class="col-md-offset-4">
+
+
+                <div class="form-group">
+                    <label class="col-md-2">Tên khách hàng</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.TenKhachHang)
+                        @Html.ValidationMessageFor(model => model.TenKhachHang)
                     </div>
                 </div>
 
                 <div class="form-group">
+                    <label class="col-md-2">Địa chỉ</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiaChi)
+                        @Html.ValidationMessageFor(model => model.DiaChi)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">Số điện thoại</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SoDienThoai)
+                        @Html.ValidationMessageFor(model => model.SoDienThoai)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2">Email</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email)
+                        @Html.ValidationMessageFor(model => model.Email)
+>>>>>>> origin/master
+                    </div>
+                </div>
+
+                <div class="form-group">
+<<<<<<< HEAD
                     <b style="padding-left:20px">Ngày giao hàng:</b>
                     <div class="col-md-12">
                         <input type="date" name="NgayGiao" />
@@ -81,5 +137,40 @@
             </div>
         </div>
     </div>
+=======
+                    <label class="col-md-2">Ghi chú</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GhiChu)
+                        @Html.ValidationMessageFor(model => model.GhiChu)
+                    </div>
+                </div>
+
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="form-group">
+                        <label class="col-md-2">UserID</label>
+                        <div class="col-md-10">
+                            <input name="UserID" value="@User.Identity.GetUserName() " type="text" disabled />
+                            @Html.ValidationMessageFor(model => model.UserID)
+                        </div>
+                    </div>
+                }
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <div class="btn btn-default">
+                            @Html.ActionLink("Trở về", "Index")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+
+>>>>>>> origin/master
 }
 
