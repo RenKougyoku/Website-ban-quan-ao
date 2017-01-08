@@ -1,0 +1,118 @@
+﻿@*@model IEnumerable<ShopOnline.Models.SanPham>*@
+@using ShopOnline.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<SanPham>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<style>
+    .canhgiua {
+        text-align: center;
+    }
+</style>
+
+<h2>Quản lý sản phẩm</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        @*<th>
+                @Html.DisplayNameFor(model => model.Ma)
+            </th>*@
+        <th class="canhgiua">
+            <strong>Loại</strong>
+        </th>
+        <th class="canhgiua">
+            <strong>Tên</strong>
+        </th>
+        <th class="canhgiua">
+            <strong>Giá bán</strong>
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>*@
+        @*<th>
+                @Html.DisplayNameFor(model => model.Mota)
+            </th>*@
+        <th class="canhgiua">
+            <strong>Nhà sản xuất</strong>
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.NgungBan)
+            </th>*@
+        <th class="canhgiua">
+            <strong>Ngày cập nhật</strong>
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.BiDanh)
+            </th>*@
+        <th class="canhgiua">
+            <strong>Hình</strong>
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loai.Ten)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Ma)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Ten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GiaBan)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>*@
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Mota)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.NhaSanXuat)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.NgungBan)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayCapNhat)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.BiDanh)
+                </td>*@
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Hinh)*@
+                <img src="@item.Hinh" width="200" height="200" alt="@item.Ten">
+            </td>
+
+            <td>
+                @Html.ActionLink("Chỉnh sửa", "Edit", new { id = item.SanPhamID }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.SanPhamID }) |
+                @Html.ActionLink("Xoá", "Delete", new { id = item.SanPhamID })
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

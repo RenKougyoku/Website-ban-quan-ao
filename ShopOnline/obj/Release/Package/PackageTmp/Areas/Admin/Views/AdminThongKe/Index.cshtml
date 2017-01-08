@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
+<h1 style="font-weight:bold;text-align:center;font-family:'Times New Roman'">THỐNG KÊ</h1>
+<br /><hr />
+<div class="col_3">
+    <div class="col-md-3 widget widget1">
+        <div class="r3_counter_box">
+            <i class="fa fa-shopping-cart"></i>
+            <div class="stats">
+                <h5 style="padding-top:5PX"> @ViewBag.ThongKeDonHang  <span></span></h5>
+                <div class="grow">
+                    <p>Đơn Hàng</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 widget widget1">
+        <div class="r3_counter_box">
+            <i class="fa fa-shopping-cart"></i>
+            <div class="stats">
+                <h5>@ViewBag.ThongKeSanPham<span></span></h5>
+                <div class="grow grow3">
+                    <p>Số lượng sản phẩm</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 widget widget1 ">
+        <div class="r3_counter_box">
+            <i class="fa fa-usd"></i>
+            <div class="stats">
+                @{decimal TongDoanhThu = decimal.Parse(ViewBag.ThongKeDoanhThu.ToString());
+                TongDoanhThu = TongDoanhThu / 1000;
+                }
+                <h5>@TongDoanhThu.ToString("#,##") K<span></span></h5>
+                <div class="grow grow3">
+                    <p>Tổng doanh thu</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="clearfix"> </div>
+</div>
+<div class="clearfix"> </div>
+<br />
