@@ -1,0 +1,193 @@
+﻿@model ShopOnline.Models.SanPham
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+<script src="~/Content/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+    // CKEDITOR.replace('ckeditor');
+    var editor = CKEDITOR.replace('ckeditor', {
+        customConfig: '/Content/ckeditor/config.js',
+    });
+    CKFinder.setupCKEditor(null, '@Url.Content( "~/Content/ckfinder/")');
+</script>
+
+<script type="text/javascript">
+    var id = null;
+    function BrowseServer(num) {
+        id = num;
+        var finder = new CKFinder();
+        //finder.basePath = '../';
+        finder.selectActionFunction = SetFileField;
+        finder.popup();
+    }
+    function SetFileField(fileUrl) {
+        document.getElementById('Hinh' + id).value = fileUrl;
+
+    }
+</script>
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+<h1 style="font-family:'Times New Roman';text-align:center"><b>CHỈNH SỮA THÔNG TIN SẢN PHẨM</b></h1>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal" style="font-family:'Times New Roman';font-size: 20px">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.SanPhamID)
+
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-6" style="padding-left:150px;">
+                    <div class="form-group">
+                        <div>
+                            Mã sản phẩm:
+                            @Html.EditorFor(model => model.Ma, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Ma, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            Trạng thái:<small>1 là SP nổi bật, 2 là SP bt</small>
+                            @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="padding-left:150px;">
+                    <div class="form-group">
+                        Tên sản phẩm:
+                        @Html.EditorFor(model => model.Ten, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Ten, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        Mã loại:
+                        @Html.DropDownList("LoaiID", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.LoaiID, "", new { @class = "text-danger" })
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        Mô tả:
+                        <textarea name="MoTa" class="ckeditor" id="ckeditor">@Model.Mota</textarea>
+                        @Html.ValidationMessageFor(model => model.Mota)
+
+                    </div>
+                </div>
+
+                <div class="col-md-6" style="padding-left:150px;">
+                    <div class="form-group">
+                        @*@Html.LabelFor(model => model.NgungBan, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                        <div class="col-md-12">
+                            Sản phẩm ngừng kinh doanh:
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.NgungBan)
+                                @Html.ValidationMessageFor(model => model.NgungBan, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            Bí danh:
+                            @Html.EditorFor(model => model.BiDanh, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.BiDanh, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            <label style="padding-left:20px">Nhà Sản Xuất</label><br />
+                            <div class="col-md-10">
+                                <input type="text" name="NhaSanXuat" class="form-control" />
+                                @Html.ValidationMessageFor(model => model.NhaSanXuat)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            Số lượng:
+                            @Html.EditorFor(model => model.SoLuongBan, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.SoLuongBan, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+
+                Hình ảnh:<br />
+                @Html.EditorFor(model => model.Hinh)
+                <input type="text" name="Hinh" id="Hinh" class="form-control " />
+                <input type="button" value="Chọn Ảnh ..." onclick="BrowseServer('');" />
+                @Html.ValidationMessageFor(model => model.Hinh)
+
+            </div>
+              
+                </div>
+                    
+                </div>
+
+                <div class="col-md-6" style="padding-left:150px;">
+                    <div class="form-group">
+
+                        Ngày cập nhật:
+                        @Html.EditorFor(model => model.NgayCapNhat, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NgayCapNhat, "", new { @class = "text-danger" })
+
+                    </div>
+
+                   
+
+                    
+
+                    <div class="form-group">
+
+                        Số lượng bán:
+                        @Html.EditorFor(model => model.SoLuongBan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoLuongBan, "", new { @class = "text-danger" })
+
+                    </div>
+
+                  
+
+                    <div class="form-group">
+
+                        Giá bán:
+                        @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-5 col-md-6">
+                <input type="submit" value="Lưu thông tin" class="btn btn-lg" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="col-md-offset-5 " style="padding-left:60px">
+    @Html.ActionLink("Trở về", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
