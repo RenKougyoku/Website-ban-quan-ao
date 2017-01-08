@@ -1,0 +1,77 @@
+﻿@model ShopOnline.Models.DonHang
+
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<fieldset>
+    <h2 style="font-family:'Times New Roman';text-align:center"><strong> THÔNG TIN KHÁCH HÀNG</strong></h2><br />
+    <table class="table table-bordered table-hover" style="font-family:'Times New Roman';font-size:20PX">
+        <tr>
+            <td><b>Tên khách hàng</b></td>
+            <td>@Html.DisplayFor(model => model.TenKhachHang)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.DisplayNameFor(model => model.SoDienThoai)</b></td>
+            <td>@Html.DisplayFor(model => model.SoDienThoai)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.DisplayNameFor(model => model.DiaChi)</b></td>
+            <td>@Html.DisplayFor(model => model.DiaChi)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.DisplayNameFor(model => model.NgayDatHang)</b></td>
+            <td>@Html.DisplayFor(model => model.NgayDatHang)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.DisplayNameFor(model => model.DaGiaoHang)</b></td>
+            <td>@Html.DisplayFor(model => model.DaGiaoHang)</td>
+        </tr>
+        <tr>
+        <tr>
+            <td><b>@Html.DisplayNameFor(model => model.UserID)</b></td>
+            <td>@Html.DisplayFor(model => model.UserID)</td>
+        </tr>
+
+        </tr>
+    </table>
+</fieldset>
+
+<fieldset>
+    <h2 style="font-family:'Times New Roman';text-align:center"><strong> CHI TIẾT ĐƠN ĐẶT HÀNG</strong></h2><br />
+    <table class="table table-bordered table-hover" style="font-family:'Times New Roman';font-size:20PX">
+        <thead>
+            <tr>
+                <th>Sản Phẩm</th>
+                <th>Đơn Giá</th>
+                <th>Số Lượng</th>
+                <th>Thành Tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var TongTien = Model.DonHangChiTiets.Sum(m => m.DonGia * m.SoLuong);
+            }
+            @foreach (var item in Model.DonHangChiTiets)
+            {
+                //var ThanhTien = item.SoLuong * item.DonGia ;
+                <tr>
+                    <td>@item.SanPhamSize.SanPham.Ten</td>
+                    <td>@string.Format("{0:0,0 VNĐ}", item.DonGia).Replace(",", ".")</td>
+                    <td>@item.SoLuong</td>
+                    <td>@string.Format("{0:0,0 VNĐ}", item.ThanhTien).Replace(",", ".")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div style="border-top: solid 2px #0094ff; margin: 10px; padding: 10px; font-size: 20px; font-weight: bold;text-align:right;font-family:'Times New Roman'">
+        Tổng Tiền :@string.Format("{0:0,0 VNĐ}", TongTien).Replace(",", ".")
+    </div>
+    <div class="col-md-offset-11 col-md-1" style="font-family:'Times New Roman'">
+        @Html.ActionLink("Trở về", "Index")
+    </div>
+</fieldset>
+
+
