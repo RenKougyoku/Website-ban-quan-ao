@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">howtodriveright</string>
+    <string name="app_name">howtodriveitright</string>
+    <string name="cancel">Hủy</string>
+    <string name="diadiem">Địa điểm</string>
+    <string name="bandangodau">\u00A0\u00A0\u00A0Bạn đang ở đâu?</string>
+    <string name="gps">GPS chưa được kích hoạt</string>
 </resources>
