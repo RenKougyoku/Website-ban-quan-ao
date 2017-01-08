@@ -1,0 +1,176 @@
+﻿@model ShopOnline.Models.SanPham
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+
+
+<script src="~/Content/ckfinder/ckfinder.js"></script>
+<script type="text/javascript">
+    var id = null;
+    function BrowseServer(num) {
+        id = num;
+        var finder = new CKFinder();
+        //finder.basePath = '../';
+        finder.selectActionFunction = SetFileField;
+        finder.popup();
+    }
+    function SetFileField(fileUrl) {
+        document.getElementById('Hinh' + id).value = fileUrl;
+    }
+</script>
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+</script>
+
+<h2 style="text-align:center"><b>THÊM MỚI SẢN PHẨM</b></h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>SanPham</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label style="padding-left:20px">Mã Sản Phẩm</label><br />
+                    <div class="col-md-10">
+                        <input type="text" name="Ma" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Ma)
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label style="padding-left:20px">Tên Sản Phẩm</label><br />
+                    <div class="col-md-10">
+                        <input type="text" name="Ten" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Ten)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="padding-left:20px">Giá Bán</label><br />
+                    <div class="col-md-10">
+                        <input type="text" name="GiaBan" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.GiaBan)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="padding-left:20px">Trạng Thái</label><br />
+                    <div class="col-md-10">
+                        <input type="number" name="TrangThai" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.TrangThai)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label style="padding-left:20px">Tên Loại Sản Phẩm</label><br />
+                    <div class="col-md-10">
+                        @*@Html.DropDownList("LoaiID", String.Empty)
+                            @Html.ValidationMessageFor(model => model.LoaiID)*@
+                        @Html.DropDownListFor(model => model.LoaiID, ViewBag.listCate as
+                    IEnumerable<SelectListItem>, new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label style="padding-left:20px">Nhà Sản Xuất</label><br />
+                    <div class="col-md-10">
+                        <input type="text" name="NhaSanXuat" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.NhaSanXuat)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="padding-left:20px">Ngày Cập Nhật</label><br />
+                    <div class="col-md-10">
+                        <input type="datetime" name="NgayCapNhat" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.NgayCapNhat)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="padding-left:20px">Bí Danh</label><br />
+                    <div class="col-md-10">
+                        <input type="text" name="BiDanh" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.BiDanh)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group ">
+            @*<label style="padding-left:20px">Hình Sản Phẩm</label><br />
+                <div class="col-md-11">
+                        <input type="file" name="Hinh" class="form-control" />
+
+                </div>*@
+
+            <div class="form-group col-md-10">
+                <label style="padding-left:20px">Hình Ảnh</label><br />
+                @*@Html.LabelFor(model => model.Hinh, new { @class = "control-label col-md-2" })*@
+                <div class="">
+
+                    <input type="text" name="Hinh" id="Hinh" class="form-control " />
+                    <input type="button" value="Chọn Ảnh ..." onclick="BrowseServer('');" />
+                    @Html.ValidationMessageFor(model => model.Hinh)
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                Mô tả:
+                <textarea name="MoTa" class="ckeditor" id="ckeditor"></textarea>
+                @Html.ValidationMessageFor(model => model.Mota)
+            </div>
+        </div>
+
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.NgungBan, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NgungBan)
+                    @Html.ValidationMessageFor(model => model.NgungBan)
+                </div>
+            </div>*@
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm mới" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Trở về", "Index")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
